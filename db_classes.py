@@ -30,10 +30,21 @@ class meme_processed(db.Model):
 	__tablename__ = "meme_processed"
 
 	id = db.Column(db.Integer, primary_key = True)
-	img_name = db.Column(db.TEXT)
-	img_sentiment = db.Column(db.TEXT)
-	text_sentiment = db.Column(db.TEXT)
-	text_magnitude = db.Column(db.TEXT)
-	capt_sentiment = db.Column(db.TEXT)
-	capt_magnitude = db.Column(db.TEXT)
+	date = db.Column(db.TEXT)
+	entities = db.Column(db.TEXT)
+	ocr_string = db.Column(db.TEXT)
+	img_sentiment = db.Column(db.REAL)
+	text_sentiment = db.Column(db.REAL)
+	text_magnitude = db.Column(db.REAL)
+	capt_sentiment = db.Column(db.REAL)
+	capt_magnitude = db.Column(db.REAL)
+
+class meme_raw(db.Model):
+
+	__tablename__ = "meme_raw"
+
+	id = db.Column(db.Integer, primary_key = True)
+	caption = db.Column(db.TEXT)
+	date = db.Column(db.TEXT)
+
 
