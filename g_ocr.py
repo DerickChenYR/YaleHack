@@ -1,17 +1,10 @@
-CONFIG_FILE = "config/gcloud_credentials.json"
-
-
 from google.cloud import vision
 import io
-import os
-
+from wordsegment import load, segment
 
 
 def detect_text(path):
     """Detects text in the file."""
-
-
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CONFIG_FILE
 
 
     client = vision.ImageAnnotatorClient()
@@ -25,12 +18,16 @@ def detect_text(path):
     texts = response.text_annotations
     print('Texts:')
 
+    load()
+
     for text in texts:
         print('\n"{}"'.format(text.description))
 
-        vertices = (['({},{})'.format(vertex.x, vertex.y)
-                    for vertex in text.bounding_poly.vertices])
+        #vertices = (['({},{})'.format(vertex.x, vertex.y)
+                    #for vertex in text.bounding_poly.vertices])
 
         #print('bounds: {}'.format(','.join(vertices)))
 
-    return  texts[0].description
+    segmented_words = " ".join(segment(texts[0].description))
+
+    return segmented_words.upper()

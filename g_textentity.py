@@ -1,6 +1,3 @@
-CONFIG_FILE = "config/gcloud_credentials.json"
-
-
 from google.cloud import language_v1
 from google.cloud.language_v1 import enums
 
