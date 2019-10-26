@@ -1,10 +1,15 @@
 CONFIG_FILE = "config/gcloud_credentials.json"
 
+
+from google.cloud import vision
+import io
+import os
+
+
+
 def detect_text(path):
     """Detects text in the file."""
-    from google.cloud import vision
-    import io
-    import os
+
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CONFIG_FILE
 
@@ -26,4 +31,6 @@ def detect_text(path):
         vertices = (['({},{})'.format(vertex.x, vertex.y)
                     for vertex in text.bounding_poly.vertices])
 
-        print('bounds: {}'.format(','.join(vertices)))
+        #print('bounds: {}'.format(','.join(vertices)))
+
+    return  texts[0].description
