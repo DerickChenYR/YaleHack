@@ -27,6 +27,9 @@ def analyze_entities(text_content):
     encoding_type = enums.EncodingType.UTF8
 
     response = client.analyze_entities(document, encoding_type=encoding_type)
+
+    entities = []
+
     # Loop through entitites returned from the API
     for entity in response.entities:
         print(u"Representative name for the entity: {}".format(entity.name))
@@ -45,6 +48,7 @@ def analyze_entities(text_content):
         # The API currently supports proper noun mentions.
         for mention in entity.mentions:
             print(u"Mention text: {}".format(mention.text.content))
+            entities.append(mention.text.content)
             # Get the mention type, e.g. PROPER for proper noun
             print(
                 u"Mention type: {}".format(enums.EntityMention.Type(mention.type).name)
@@ -54,3 +58,5 @@ def analyze_entities(text_content):
     # the language specified in the request or, if not specified,
     # the automatically-detected language.
     print(u"Language of the text: {}".format(response.language))
+
+    return entities
