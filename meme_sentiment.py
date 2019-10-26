@@ -26,8 +26,8 @@ def gen_meme_sentiment(id, file_name, date_string):
 	if img.caption:
 		capt_score, capt_magnitude = analyze_sentiment(img.caption)
 	else:
-		capt_score = None
-		capt_magnitude = None
+		capt_score = 0
+		capt_magnitude = 0
 
 	print(f"entities: {entities_mentioned}\ntext_score = {text_score}, text_magnitude = {text_magnitude}\ncapt_score = {capt_score}, capt_magnitude = {capt_magnitude}")
 
