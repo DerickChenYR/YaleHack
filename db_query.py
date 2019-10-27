@@ -58,6 +58,54 @@ def get_raw_by_id(id, db_session = db_session):
 
 
 
+
+import pandas as pd
+from sqlalchemy.inspection import inspect
+from collections import defaultdict
+
+#PASSED
+#Helper method to turn sqlalchemy objects to dict
+#https://gist.github.com/garaud/bda10fa55df5723e27da
+def query_to_dict(rset):
+    result = defaultdict(list)
+    for obj in rset:
+        instance = inspect(obj)
+        for key, x in instance.attrs.items():
+            result[key].append(x.value)
+    return result
+
+
+#PASSED
+#Reads SQLAlchemy query objects into pandas
+def sqlalchemy_to_df(db_table, db_session = db_session):
+    rset = db_session.query(db_table).all()
+    df = pd.DataFrame(query_to_dict(rset))
+    pd.to_datetime(df['date'])
+    df_sorted = df.sort_values(by=['date'])
+
+    db_session.close()
+
+    return df_sorted
+
+
+def prepare_entities_freq(df, top = 10):
+
+
+	entities = []
+
+	for i in list(df['entities']):
+		if " " in i:
+			entities.extend(i.split(" "))
+		else:
+			entities.append(i)
+
+	from collections import Counter
+
+	freq = Counter(entities).most_common(top)
+
+	return dict(freq)
+
+
 '''
 data1 = {
 	"id":101,
