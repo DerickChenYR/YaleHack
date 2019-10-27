@@ -119,6 +119,17 @@ def prepare_gallery_memes(df_sorted_comp, top = 5):
 	return encoded_imgs
 
 
+def prepare_gallery_memes_jetblue(df_sorted_comp, top = 5):
+
+	top_ids = list(df_sorted_comp['id'].head(top))
+	images_folder = "downloads/jet_blue_memes/"
+	encoded_imgs = []
+
+	for id in top_ids:
+		encoded_img = base64.b64encode(open(images_folder + str(id) + ".jpg", 'rb').read())
+		encoded_imgs.append(encoded_img)
+
+	return encoded_imgs
 
 
 '''
