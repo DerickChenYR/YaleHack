@@ -27,7 +27,9 @@ def detect_text(path):
                     #for vertex in text.bounding_poly.vertices])
 
         #print('bounds: {}'.format(','.join(vertices)))
-
-    segmented_words = " ".join(segment(texts[0].description))
+    try:
+        segmented_words = " ".join(segment(texts[0].description))
+    except:
+        segmented_words = ""
 
     return segmented_words.upper()

@@ -46,5 +46,6 @@ class meme_raw(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	caption = db.Column(db.TEXT)
 	date = db.Column(db.TEXT)
+	url = db.Column(db.TEXT)
 
 

@@ -1,5 +1,5 @@
 Set credential in shell first!
-$env:GOOGLE_APPLICATION_CREDENTIALS="D:\Programming\YaleHack\YaleHack\gcloud_credentials.json"
+$env:GOOGLE_APPLICATION_CREDENTIALS="~/Code/yhack/env/YaleHack/config/gcloud_credentials.json"
 
 
 OCR Identification Workflow

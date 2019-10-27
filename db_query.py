@@ -35,13 +35,13 @@ def insert_meme_raw(data, db_session = db_session):
 						id = data['id'],
 						date = data['date'],
 						caption = data['caption'],
-
+						url = data['url']
 						)
 
 	#push to db
 	try:
 
-		db_session.add(new_processed)
+		db_session.add(new_raw)
 		db_session.commit()
 		#success
 		return True
@@ -63,6 +63,7 @@ data1 = {
 	"id":101,
 	"date": "SampleTime",
 	'caption': "CAPTION HERE"
+	'url': "URL"
 }
 
 
