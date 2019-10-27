@@ -1,5 +1,5 @@
 from db_classes import db_session, start_session, meme_processed, meme_raw
-
+import base64
 
 def insert_meme_processed(data, db_session = db_session):
 
@@ -81,11 +81,11 @@ def sqlalchemy_to_df(db_table, db_session = db_session):
     rset = db_session.query(db_table).all()
     df = pd.DataFrame(query_to_dict(rset))
     pd.to_datetime(df['date'])
-    df_sorted = df.sort_values(by=['date'])
+    df_sorted_date = df.sort_values(by=['date'])
 
     db_session.close()
 
-    return df_sorted
+    return df_sorted_date
 
 
 def prepare_entities_freq(df, top = 10):
@@ -104,6 +104,21 @@ def prepare_entities_freq(df, top = 10):
 	freq = Counter(entities).most_common(top)
 
 	return dict(freq)
+
+
+def prepare_gallery_memes(df_sorted_comp, top = 5):
+
+	top_ids = list(df_sorted_comp['id'].head(top))
+	images_folder = "images/"
+	encoded_imgs = []
+
+	for id in top_ids:
+		encoded_img = base64.b64encode(open(images_folder + str(id) + ".jpg", 'rb').read())
+		encoded_imgs.append(encoded_img)
+
+	return encoded_imgs
+
+
 
 
 '''

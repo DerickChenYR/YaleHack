@@ -8,13 +8,17 @@ import plotly.express as px
 
 
 from db_classes import meme_processed
-from db_query import sqlalchemy_to_df, prepare_entities_freq
+from db_query import sqlalchemy_to_df, prepare_entities_freq, prepare_gallery_memes
 
 #DF holding processed meme data
 df = sqlalchemy_to_df(meme_processed)
 
 df_positive = df[df['capt_sentiment'] + df['text_sentiment'] > 0]
+df_positive_comp = df.sort_values(by=['comp_score'])
+
 df_negative = df[df['capt_sentiment'] + df['text_sentiment'] < 0]
+df_negative_comp = df.sort_values(by=['comp_score'], ascending=False)
+
 entities_positive = prepare_entities_freq(df_positive, top = 20)
 entities_negative = prepare_entities_freq(df_negative, top = 20)
 
@@ -31,6 +35,24 @@ header = html.Div(children=[
     ], style={"text-align":"center"})
 
 
+#Favourable Gallery
+display_count = 5
+encoded_imgs = prepare_gallery_memes(df_positive_comp, top = display_count)
+decoded_imgs = []
+for img in encoded_imgs:
+    decoded_imgs.append(html.Img(src='data:image/png;base64,{}'.format(img.decode()), style={"width":"{}%".format(80/display_count)}))
+
+gallery_positive = html.Div(children=decoded_imgs);
+
+
+#Negative Gallery
+display_count = 5
+encoded_imgs = prepare_gallery_memes(df_negative_comp, top = display_count)
+decoded_imgs = []
+for img in encoded_imgs:
+    decoded_imgs.append(html.Img(src='data:image/png;base64,{}'.format(img.decode()), style={"width":"{}%".format(80/display_count)}))
+
+gallery_negative = html.Div(children=decoded_imgs);
 
 #Favourable Components
 left_wordcloud = None
@@ -150,6 +172,8 @@ app.layout = html.Div(children=[
 
     #Second Section
     html.Div([
+        gallery_positive,
+        gallery_negative,
         html.Div(
             className = "row",
             children=[
