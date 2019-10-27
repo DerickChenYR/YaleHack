@@ -12,7 +12,8 @@ for index,row in df.iterrows():
     gen_meme_sentiment(row['id'],"images/{}.jpg".format(row['id']),row['date'])
     #print(row['id'])
 tagged_df = pd.read_sql_query("select id,comp_score from meme_processed;",conn)
-tagged_df['location'] = "//inlaid-rig-257102-vcm/meme_dataset/documents/images/"+tagged_df['id'].astype(str)+".jpg"
-tagged_df = tagged_df[['location','comp_score']]
+tagged_df['location'] = "gs://inlaid-rig-257102-vcm/meme_dataset/documents/images/"+tagged_df['id'].astype(str)+".jpg"
+tagged_df['category'] = pd.cut(tagged_df.comp_score,bins=5,labels=["hn","ln","ne","lp","hp"])
+tagged_df = tagged_df[['location','category']]
 tagged_df.to_csv("scores.csv",index=False)
 print(tagged_df)

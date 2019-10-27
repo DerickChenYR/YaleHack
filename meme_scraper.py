@@ -21,7 +21,7 @@ def main():
     counter = 0
     for subreddit in subreddits:
         reddit = praw.Reddit(client_id="V8avVeCeT782mQ",client_secret="MHBenrhwZSeqW2mY4pUD74OkNwM",user_agent="meme_crawler")
-        sub_memes = reddit.subreddit(subreddit).top(limit=500,time_filter='month')
+        sub_memes = reddit.subreddit(subreddit).top(limit=1000,time_filter='month')
         for meme in sub_memes:
             if ".jpg" in meme.url:
                 r = requests.get(meme.url,stream=True)

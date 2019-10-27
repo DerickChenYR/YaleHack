@@ -41,7 +41,7 @@ def gen_meme_sentiment(id, file_name, date_string):
 		"text_magnitude": round(text_magnitude,5),
 		"capt_sentiment": round(capt_score,5),
 		"capt_magnitude": round(capt_magnitude,5),
-		"comp_score":round(float(np.mean(text_magnitude,capt_magnitude),5))
+		"comp_score":round((text_magnitude+capt_magnitude)/2,5)
 	}
 
 	status = insert_meme_processed(data)
