@@ -13,12 +13,12 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CONFIG_FILE
 
 
 def gen_meme_sentiment(id, file_name, date_string):
-
+	print("Currently Working on File With ID:{}".format(id))
 	img = get_raw_by_id(id)
 	
 	img_text = detect_text(file_name)
 	
-	print("Analysing Entities")
+	#print("Analysing Entities")
 	entities_mentioned = analyze_entities(img_text)
 
 	text_score, text_magnitude = analyze_sentiment(img_text)
