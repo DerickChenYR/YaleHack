@@ -1,9 +1,8 @@
 from g_ocr import detect_text
 from g_textentity import analyze_entities
 from g_textsentiment import analyze_sentiment
-
 from db_query import get_raw_by_id, insert_meme_processed
-
+import numpy as np
 import os
 import sys
 
@@ -42,7 +41,7 @@ def gen_meme_sentiment(id, file_name, date_string):
 		"text_magnitude": round(text_magnitude,5),
 		"capt_sentiment": round(capt_score,5),
 		"capt_magnitude": round(capt_magnitude,5),
-
+		"comp_score":round(float(np.mean(text_magnitude,capt_magnitude),5))
 	}
 
 	status = insert_meme_processed(data)

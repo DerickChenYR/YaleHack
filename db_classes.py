@@ -38,6 +38,7 @@ class meme_processed(db.Model):
 	text_magnitude = db.Column(db.REAL)
 	capt_sentiment = db.Column(db.REAL)
 	capt_magnitude = db.Column(db.REAL)
+	comp_score = db.Column(db.REAL)
 
 class meme_raw(db.Model):
 

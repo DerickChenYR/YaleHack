@@ -15,7 +15,7 @@ def insert_meme_processed(data, db_session = db_session):
 						text_magnitude = data['text_magnitude'],
 						capt_sentiment = data['capt_sentiment'],
 						capt_magnitude = data['capt_magnitude'],
-
+						comp_score = data['comp_score']
 						)
 
 	#push to db
@@ -78,6 +78,7 @@ data2 = {
 	"text_magnitude": 1.3,
 	"capt_sentiment": 1.5,
 	"capt_magnitude": 1.6,
+	"comp_score":[avg of capt and text]
 
 }
 
