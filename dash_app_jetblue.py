@@ -28,11 +28,11 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-#encoded_logo = base64.b64encode(open("jetblue_logo.jpg", 'rb').read())
+encoded_logo = base64.b64encode(open("jetblue_logo.jpg", 'rb').read())
 
 
 header = html.Div(children=[
-    #html.Img(src='data:image/png;base64,{}'.format(encoded_logo.decode()), style={"width":"30%", "padding":5, "max-width":200}),
+    html.Img(src='data:image/png;base64,{}'.format(encoded_logo.decode()), style={"width":"30%", "padding":5, "max-width":200}),
     html.H1('Meme Sentiment Classifier Analysis', style={"font-weight":"bold"}),
     html.P("A YaleHack Project by Anand Chitale and Derick Chen"),
     html.P("We evaluated meme sentiments based on three metrics, the polarity of the image template, the natural language sentiments of the image text and that of the caption. After scraping and storing the images as local jpegs, Google Cloud APIs were utilised to analyse the sentiments of the individaul sentiment components. Cloud Vision was used to extract the image text with OCR API, and Natural Language API was used to extract entities and to perform text based sentiment analysis. Image format sentiment was derived with a supervised ML training model. We extract text-based sentiments from a training set of memes and instructed the ML model to learn the correlation between the images and the labels.", style={"padding-left":"15%", "padding-right":"15%"})
@@ -41,7 +41,7 @@ header = html.Div(children=[
 
 #Favourable Gallery
 display_count = 5
-encoded_imgs = prepare_gallery_memes(df_positive_comp, top = display_count)
+encoded_imgs = prepare_gallery_memes_jetblue(df_positive_comp, top = display_count)
 decoded_imgs = []
 for img in encoded_imgs:
     decoded_imgs.append(html.Img(src='data:image/png;base64,{}'.format(img.decode()), style={"width":"{}%".format(90/display_count), "padding":5}))
@@ -51,7 +51,7 @@ gallery_positive = html.Div(children=decoded_imgs, style={"text-align":"center",
 
 #Negative Gallery
 display_count = 5
-encoded_imgs = prepare_gallery_memes(df_negative_comp, top = display_count)
+encoded_imgs = prepare_gallery_memes_jetblue(df_negative_comp, top = display_count)
 decoded_imgs = []
 for img in encoded_imgs:
     decoded_imgs.append(html.Img(src='data:image/png;base64,{}'.format(img.decode()), style={"width":"{}%".format(90/display_count), "padding":5}))
@@ -74,7 +74,7 @@ for entity, freq in entities_positive.items():
 
 layout = go.Layout(
         #width='80%',
-        title='Entities from Memes with Positive Sentiment',
+        title='What people love about JetBlue',
         showlegend=False,
         margin={'l': 100, 'b': 50, 't': 80, 'r': 50},
     )
@@ -106,7 +106,7 @@ for entity, freq in entities_negative.items():
 
 layout = go.Layout(
         #width='80%',
-        title='Entities from Memes with Negative Sentiment',
+        title='What JetBlue could improve on',
         showlegend=False,
         margin={'l': 100, 'b': 50, 't': 80, 'r': 50},
     )
