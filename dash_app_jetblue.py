@@ -7,8 +7,8 @@ import plotly.graph_objs as go
 import plotly.express as px
 
 
-from db_classes import meme_processed
-from db_query import sqlalchemy_to_df, prepare_entities_freq, prepare_gallery_memes, prepare_gallery_memes_jetblue
+from db_classes_jetblue import meme_processed
+from db_query_jetblue import sqlalchemy_to_df, prepare_entities_freq, prepare_gallery_memes, prepare_gallery_memes_jetblue
 import base64
 
 
@@ -212,17 +212,6 @@ app.layout = html.Div(children=[
     ]),
 
     #Historical Section
-    html.Div([
-        html.H3("Historical Sentiment Trend", style ={"text-align":"center","margin-top":40}),
-        html.Div(
-            className = "row",
-            children=[
-                #html.P("Content for section 2.", style ={"text-align":"center"}),
-                historical_meme_sentiment
-            ],
-            style={}
-        )
-    ]),
 
     html.Div([
         html.H3("Sentiment Distribution", style ={"text-align":"center","margin-top":40}),
